@@ -11,7 +11,7 @@ data class FeedResponse(val sessionId:String?,val items:List<Reel>,val newItems:
 class ReelsRepository {
     companion object {
         private const val BASE="https://shortreels-scraper-1.onrender.com"
-        private const val SOURCE="https://www.goodshort.com/dramas/playlets?openCategory=1"
+        private const val SOURCE="https://dashreels.com/"
     }
     fun initialFeed()=request("$BASE/v1/feed?url="+URLEncoder.encode(SOURCE,"UTF-8")+"&limit=10")
     fun nextFeed(sessionId:String)=request("$BASE/v1/feed?sessionId="+URLEncoder.encode(sessionId,"UTF-8")+"&limit=10")
