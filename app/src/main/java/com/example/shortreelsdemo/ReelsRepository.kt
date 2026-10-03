@@ -33,15 +33,15 @@ class ReelsRepository {
     }
 
     fun initialFeed() =
-        request("$BASE/v1/feed?url=\${encode(SOURCE)}&limit=10")
+        request("$BASE/v1/feed?url=${encode(SOURCE)}&limit=10")
 
     fun nextFeed(sessionId: String) =
-        request("$BASE/v1/feed?sessionId=\${encode(sessionId)}&limit=10")
+        request("$BASE/v1/feed?sessionId=${encode(sessionId)}&limit=10")
 
     fun listEpisodes(sessionId: String, sourceUrl: String?): List<Int> {
         val url = buildString {
-            append("$BASE/v1/episodes?sessionId=\${encode(sessionId)}")
-            if (!sourceUrl.isNullOrBlank()) append("&sourceUrl=\${encode(sourceUrl)}")
+            append("$BASE/v1/episodes?sessionId=${encode(sessionId)}")
+            if (!sourceUrl.isNullOrBlank()) append("&sourceUrl=${encode(sourceUrl)}")
         }
         val root = requestJson(url)
         val a = root.optJSONArray("episodes") ?: return emptyList()
@@ -55,8 +55,8 @@ class ReelsRepository {
 
     fun switchEpisode(sessionId: String, sourceUrl: String?, episode: Int): EpisodeResponse {
         val url = buildString {
-            append("$BASE/v1/episode?sessionId=\${encode(sessionId)}&episode=$episode")
-            if (!sourceUrl.isNullOrBlank()) append("&sourceUrl=\${encode(sourceUrl)}")
+            append("$BASE/v1/episode?sessionId=${encode(sessionId)}&episode=$episode")
+            if (!sourceUrl.isNullOrBlank()) append("&sourceUrl=${encode(sourceUrl)}")
         }
 
         val root = requestJson(url)
