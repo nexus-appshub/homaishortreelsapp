@@ -76,6 +76,19 @@ class MainActivity : ComponentActivity() {
                 hasMore = response.hasMore
                 append(response.items)
 
+                // Some source pages expose only a small first batch until the
+                // browser is scrolled. Fill the initial screen to at least 10
+                // items using the SAME session instead of creating another one.
+                var attempts = 0
+                while (reels.size < 10 && hasMore && attempts < 4) {
+                    val more = withContext(Dispatchers.IO) {
+                        repo.nextFeed(sessionId!!)
+                    }
+                    hasMore = more.hasMore
+                    append(if (more.newItems.isNotEmpty()) more.newItems else more.items)
+                    attempts++
+                }
+
                 if (reels.isEmpty()) {
                     error.text = "No playable reels found."
                     error.visibility = TextView.VISIBLE
