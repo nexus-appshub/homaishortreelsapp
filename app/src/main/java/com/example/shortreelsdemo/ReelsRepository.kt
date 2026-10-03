@@ -29,11 +29,13 @@ data class EpisodeResponse(
 class ReelsRepository {
     companion object {
         private const val BASE = "https://shortreels-scraper-1.onrender.com"
-        private const val SOURCE = "https://dashreels.com/"
+        const val GOODSHORT_SOURCE = "https://www.goodshort.com/dramas/playlets?openCategory=1"
+        const val REELSHORT_SOURCE = "https://www.reelshort.com/"
+        const val FLEXTV_SOURCE = "https://www.flextv.cc/"
     }
 
-    fun initialFeed() =
-        request("$BASE/v1/feed?url=${encode(SOURCE)}&limit=10")
+    fun initialFeed(sourceUrl: String = GOODSHORT_SOURCE) =
+        request("$BASE/v1/feed?url=\${encode(sourceUrl)}&limit=10")
 
     fun nextFeed(sessionId: String) =
         request("$BASE/v1/feed?sessionId=${encode(sessionId)}&limit=10")
