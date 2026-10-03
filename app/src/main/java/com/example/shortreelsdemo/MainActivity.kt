@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
                 // The scraper may need several normal scroll/collection cycles
                 // before it discovers another playable reel. Retry a small
                 // bounded number of times without creating another session.
-                repeat(3) { attempt ->
+                for (attempt in 0 until 3) {
                     val response = withContext(Dispatchers.IO) {
                         repo.nextFeed(currentSession)
                     }
@@ -114,8 +114,7 @@ class MainActivity : ComponentActivity() {
                         addedAny = addedAny || added
                     }
 
-                    if (addedAny || !hasMore) return@repeat
-
+                    if (addedAny || !hasMore) break
                     if (attempt < 2) delay(350L)
                 }
             } catch (e: Exception) {
