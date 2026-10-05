@@ -30,6 +30,7 @@ class ReelsRepository {
     companion object {
         private const val BASE = "https://shortreels-scraper-1.onrender.com"
         const val GOODSHORT_SOURCE = "https://www.goodshort.com/dramas/playlets?openCategory=1"
+        const val DASHREELS_SOURCE = "https://dashreels.com/"
         const val REELSHORT_SOURCE = "https://www.reelshort.com/"
         const val FLEXTV_SOURCE = "https://www.flextv.cc/"
     }
